@@ -1,0 +1,19 @@
+---
+- name: Update web servers
+  hosts: localhost
+
+  tasks:
+  - name: Ensure apache is at the latest version
+    ansible.builtin.yum:
+      name: httpd
+      state: latest
+
+  - name: Ensure that apache is started
+    ansible.builtin.service:
+      name: httpd
+      state: started
+  
+  - name: Copies the website landing page
+    ansible.builtin.copy:
+      src: html/index.html
+      dest: /var/www/html/index.html

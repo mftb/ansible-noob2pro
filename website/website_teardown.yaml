@@ -1,0 +1,19 @@
+---
+- name: Teardown web servers
+  hosts: localhost
+
+  tasks:
+  - name: Ensure apache is at the latest version
+    ansible.builtin.yum:
+      name: httpd
+      state: latest
+
+  - name: Ensure that apache is stopped
+    ansible.builtin.service:
+      name: httpd
+      state: stopped
+  
+  - name: Removes the website landing page
+    ansible.builtin.file:
+      path: /var/www/html/index.html
+      state: absent
